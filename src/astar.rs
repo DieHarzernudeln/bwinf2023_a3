@@ -1,7 +1,13 @@
-use std::collections::HashMap;
 use crate::utils::{Node, PVector};
+use std::collections::HashMap;
 
-pub fn astar(floors: [Vec<Vec<u8>>; 2], start: PVector, target: PVector, size_x: u32, size_y: u32) -> (u32, Vec<PVector>) {
+pub fn astar(
+    floors: [Vec<Vec<u8>>; 2],
+    start: PVector,
+    target: PVector,
+    size_x: u32,
+    size_y: u32,
+) -> (u32, Vec<PVector>) {
     let mut nodes: HashMap<PVector, Node> = HashMap::new();
 
     let mut known_nodes: Vec<PVector> = vec![];
@@ -11,7 +17,10 @@ pub fn astar(floors: [Vec<Vec<u8>>; 2], start: PVector, target: PVector, size_x:
     nodes.insert(start, Node::new(0, 0, PVector::zero()));
 
     while known_nodes.len() > 0 {
-        let current = *known_nodes.iter().min_by_key(|p| nodes[p].g + nodes[p].h).unwrap();
+        let current = *known_nodes
+            .iter()
+            .min_by_key(|p| nodes[p].g + nodes[p].h)
+            .unwrap();
 
         if current == target {
             let mut path: Vec<PVector> = vec![];
@@ -55,10 +64,13 @@ pub fn astar(floors: [Vec<Vec<u8>>; 2], start: PVector, target: PVector, size_x:
     return (0, vec![]);
 }
 
-
-fn get_neighbors(current: PVector, floors: &[Vec<Vec<u8>>; 2], size_x: u32, size_y: u32) -> HashMap<PVector, u32> {
+fn get_neighbors(
+    current: PVector,
+    floors: &[Vec<Vec<u8>>; 2],
+    size_x: u32,
+    size_y: u32,
+) -> HashMap<PVector, u32> {
     let mut neighbors: HashMap<PVector, u32> = HashMap::new();
-
 
     if current.x > 0 {
         neighbors.insert(PVector::new(current.x - 1, current.y, current.z), 1);
@@ -79,7 +91,11 @@ fn get_neighbors(current: PVector, floors: &[Vec<Vec<u8>>; 2], size_x: u32, size
         neighbors.insert(PVector::new(current.x, current.y, current.z + 1), 3);
     }
 
-    return neighbors.iter().filter(|n| is_walkable((*n).0, floors)).map(|(k, v)| (*k, *v)).collect();
+    return neighbors
+        .iter()
+        .filter(|n| is_walkable((*n).0, floors))
+        .map(|(k, v)| (*k, *v))
+        .collect();
 }
 
 fn is_walkable(current: &PVector, floors: &[Vec<Vec<u8>>; 2]) -> bool {

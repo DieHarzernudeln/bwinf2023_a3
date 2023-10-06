@@ -1,7 +1,7 @@
 use crate::utils::read_data;
 
-mod utils;
 mod astar;
+mod utils;
 
 fn main() {
     let (size_x, size_y, floors, start, target) = read_data();

@@ -1,4 +1,4 @@
-use std::collections::{HashMap};
+use std::collections::HashMap;
 use std::io::{BufRead, BufReader};
 
 pub(crate) fn read_data() -> (u32, u32, [Vec<Vec<u8>>; 2], PVector, PVector) {
@@ -62,22 +62,13 @@ pub struct PVector {
     pub z: u32,
 }
 
-
 impl PVector {
     pub fn new(x: u32, y: u32, z: u32) -> Self {
-        PVector {
-            x,
-            y,
-            z,
-        }
+        PVector { x, y, z }
     }
 
     pub fn zero() -> Self {
-        PVector {
-            x: 0,
-            y: 0,
-            z: 0,
-        }
+        PVector { x: 0, y: 0, z: 0 }
     }
 
     pub fn dist(&self, pos: PVector) -> u32 {
@@ -86,7 +77,7 @@ impl PVector {
 }
 
 #[derive(Debug)]
-pub struct Node<> {
+pub struct Node {
     pub g: u32,
     pub h: u32,
     pub parent: PVector,
@@ -94,10 +85,6 @@ pub struct Node<> {
 
 impl Node {
     pub fn new(g: u32, h: u32, parent: PVector) -> Self {
-        Node {
-            g,
-            h,
-            parent,
-        }
+        Node { g, h, parent }
     }
 }
