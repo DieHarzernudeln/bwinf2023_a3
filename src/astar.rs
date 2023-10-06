@@ -16,7 +16,7 @@ pub fn astar(
     known_nodes.push(start);
     nodes.insert(start, Node::new(0, 0, PVector::zero()));
 
-    while known_nodes.len() > 0 {
+    while !known_nodes.is_empty() {
         let current = *known_nodes
             .iter()
             .min_by_key(|p| nodes[p].g + nodes[p].h)
@@ -42,16 +42,14 @@ pub fn astar(
         for neighbor in neighbors.keys() {
             let dist = *neighbors.get(neighbor).unwrap();
 
-            if finished_nodes.contains(neighbor) {
-                if nodes[neighbor].g <= nodes[&current].g + dist {
-                    continue;
-                }
+            if finished_nodes.contains(neighbor) && nodes[neighbor].g <= nodes[&current].g + dist {
+                continue;
             }
 
             let g = nodes[&current].g + dist;
             let h = neighbor.dist(target);
 
-            if !known_nodes.contains(&neighbor) {
+            if !known_nodes.contains(neighbor) {
                 known_nodes.push(*neighbor);
             } else if g >= nodes[&neighbor].g {
                 continue;
@@ -61,7 +59,7 @@ pub fn astar(
         }
     }
 
-    return (0, vec![]);
+    (0, vec![])
 }
 
 fn get_neighbors(
@@ -93,11 +91,11 @@ fn get_neighbors(
 
     return neighbors
         .iter()
-        .filter(|n| is_walkable((*n).0, floors))
+        .filter(|n| is_walkable(n.0, floors))
         .map(|(k, v)| (*k, *v))
         .collect();
 }
 
 fn is_walkable(current: &PVector, floors: &[Vec<Vec<u8>>; 2]) -> bool {
-    return floors[current.z as usize][current.y as usize][current.x as usize] != 0;
+    floors[current.z as usize][current.y as usize][current.x as usize] != 0
 }

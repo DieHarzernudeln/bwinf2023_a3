@@ -11,7 +11,7 @@ pub(crate) fn read_data() -> (u32, u32, [Vec<Vec<u8>>; 2], PVector, PVector) {
     let mut lines = file.lines();
 
     let first_line = lines.next().unwrap().unwrap();
-    let split: Vec<&str> = first_line.split(" ").collect();
+    let split: Vec<&str> = first_line.split(' ').collect();
     let size_y = split[0].parse::<u32>().unwrap();
     let size_x = split[1].parse::<u32>().unwrap();
 
@@ -41,7 +41,7 @@ pub(crate) fn read_data() -> (u32, u32, [Vec<Vec<u8>>; 2], PVector, PVector) {
         lines.next();
     }
 
-    return (size_x, size_y, floors, start, target);
+    (size_x, size_y, floors, start, target)
 }
 
 fn char_to_int(ch: char) -> u8 {
@@ -72,7 +72,7 @@ impl PVector {
     }
 
     pub fn dist(&self, pos: PVector) -> u32 {
-        return self.x.abs_diff(pos.x) + self.y.abs_diff(pos.y) + self.z.abs_diff(pos.z) * 3;
+        self.x.abs_diff(pos.x) + self.y.abs_diff(pos.y) + self.z.abs_diff(pos.z) * 3
     }
 }
 
