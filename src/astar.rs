@@ -30,13 +30,24 @@ pub fn astar(
         finished_nodes.push(current);
 
         let neighbors = get_neighbors(current, &floors, size_x, size_y);
-        check_neighbors(&neighbors, current, &mut nodes, &mut known_nodes, &finished_nodes, target);
+        check_neighbors(
+            &neighbors,
+            current,
+            &mut nodes,
+            &mut known_nodes,
+            &finished_nodes,
+            target,
+        );
     }
 
     (0, vec![])
 }
 
-fn finalize(start: PVector, target: PVector, nodes: &HashMap<PVector, Node>) -> (u32, Vec<PVector>) {
+fn finalize(
+    start: PVector,
+    target: PVector,
+    nodes: &HashMap<PVector, Node>,
+) -> (u32, Vec<PVector>) {
     let mut path: Vec<PVector> = vec![];
     let mut current = target;
     while current != start {
@@ -48,7 +59,14 @@ fn finalize(start: PVector, target: PVector, nodes: &HashMap<PVector, Node>) -> 
     return (nodes[&target].g, path);
 }
 
-fn check_neighbors(neighbors: &HashMap<PVector, u32>, current: PVector, nodes: &mut HashMap<PVector, Node>, known_nodes: &mut Vec<PVector>, finished_nodes: &Vec<PVector>, target: PVector) {
+fn check_neighbors(
+    neighbors: &HashMap<PVector, u32>,
+    current: PVector,
+    nodes: &mut HashMap<PVector, Node>,
+    known_nodes: &mut Vec<PVector>,
+    finished_nodes: &Vec<PVector>,
+    target: PVector,
+) {
     for neighbor in neighbors.keys() {
         let dist = *neighbors.get(neighbor).unwrap();
 
