@@ -2,9 +2,8 @@ use std::collections::{HashMap};
 use std::io::{BufRead, BufReader};
 
 pub(crate) fn read_data() -> (u32, u32, [Vec<Vec<u8>>; 2], PVector, PVector) {
-    let input = "/home/felix/Workspaces/Rust/bwinf_2023a3/data/zauberschule5.txt".to_string();
-    //String::new();
-    //std::io::stdin().read_line(&mut input).unwrap();
+    let mut input = String::new();
+    std::io::stdin().read_line(&mut input).unwrap();
 
     let file_path = input.trim();
     let file = BufReader::new(std::fs::File::open(file_path).unwrap());
