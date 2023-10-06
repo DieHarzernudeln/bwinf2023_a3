@@ -56,7 +56,7 @@ fn finalize(
     }
     path.push(start);
     path.reverse();
-    return (nodes[&target].g, path);
+    (nodes[&target].g, path)
 }
 
 fn check_neighbors(
@@ -64,7 +64,7 @@ fn check_neighbors(
     current: PVector,
     nodes: &mut HashMap<PVector, Node>,
     known_nodes: &mut Vec<PVector>,
-    finished_nodes: &Vec<PVector>,
+    finished_nodes: &[PVector],
     target: PVector,
 ) {
     for neighbor in neighbors.keys() {
