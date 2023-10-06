@@ -23,43 +23,50 @@ pub fn astar(
             .unwrap();
 
         if current == target {
-            let mut path: Vec<PVector> = vec![];
-            let mut current = target;
-            while current != start {
-                path.push(current);
-                current = nodes[&current].parent;
-            }
-            path.push(start);
-            path.reverse();
-            return (nodes[&target].g, path);
+            return finalize(start, target, &nodes);
         }
 
         known_nodes.retain(|&p| p != current);
         finished_nodes.push(current);
 
         let neighbors = get_neighbors(current, &floors, size_x, size_y);
-
-        for neighbor in neighbors.keys() {
-            let dist = *neighbors.get(neighbor).unwrap();
-
-            if finished_nodes.contains(neighbor) && nodes[neighbor].g <= nodes[&current].g + dist {
-                continue;
-            }
-
-            let g = nodes[&current].g + dist;
-            let h = neighbor.dist(target);
-
-            if !known_nodes.contains(neighbor) {
-                known_nodes.push(*neighbor);
-            } else if g >= nodes[&neighbor].g {
-                continue;
-            }
-
-            nodes.insert(*neighbor, Node::new(g, h, current));
-        }
+        check_neighbors(&neighbors, current, &mut nodes, &mut known_nodes, &finished_nodes, target);
     }
 
     (0, vec![])
+}
+
+fn finalize(start: PVector, target: PVector, nodes: &HashMap<PVector, Node>) -> (u32, Vec<PVector>) {
+    let mut path: Vec<PVector> = vec![];
+    let mut current = target;
+    while current != start {
+        path.push(current);
+        current = nodes[&current].parent;
+    }
+    path.push(start);
+    path.reverse();
+    return (nodes[&target].g, path);
+}
+
+fn check_neighbors(neighbors: &HashMap<PVector, u32>, current: PVector, nodes: &mut HashMap<PVector, Node>, known_nodes: &mut Vec<PVector>, finished_nodes: &Vec<PVector>, target: PVector) {
+    for neighbor in neighbors.keys() {
+        let dist = *neighbors.get(neighbor).unwrap();
+
+        if finished_nodes.contains(neighbor) && nodes[neighbor].g <= nodes[&current].g + dist {
+            continue;
+        }
+
+        let g = nodes[&current].g + dist;
+        let h = neighbor.dist(target);
+
+        if !known_nodes.contains(neighbor) {
+            known_nodes.push(*neighbor);
+        } else if g >= nodes[&neighbor].g {
+            continue;
+        }
+
+        nodes.insert(*neighbor, Node::new(g, h, current));
+    }
 }
 
 fn get_neighbors(
