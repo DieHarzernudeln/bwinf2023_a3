@@ -2,8 +2,9 @@ use std::collections::{HashMap};
 use std::io::{BufRead, BufReader};
 
 pub(crate) fn read_data() -> (u32, u32, [Vec<Vec<u8>>; 2], PVector, PVector) {
-    let mut input = String::new();
-    std::io::stdin().read_line(&mut input).unwrap();
+    let input = "/home/felix/Workspaces/Rust/bwinf_2023a3/data/zauberschule5.txt".to_string();
+    //String::new();
+    //std::io::stdin().read_line(&mut input).unwrap();
 
     let file_path = input.trim();
     let file = BufReader::new(std::fs::File::open(file_path).unwrap());
@@ -12,8 +13,8 @@ pub(crate) fn read_data() -> (u32, u32, [Vec<Vec<u8>>; 2], PVector, PVector) {
 
     let first_line = lines.next().unwrap().unwrap();
     let split: Vec<&str> = first_line.split(" ").collect();
-    let size_x = split[0].parse::<u32>().unwrap();
-    let size_y = split[1].parse::<u32>().unwrap();
+    let size_y = split[0].parse::<u32>().unwrap();
+    let size_x = split[1].parse::<u32>().unwrap();
 
     let mut start: PVector = PVector::zero();
     let mut target: PVector = PVector::zero();
@@ -25,8 +26,8 @@ pub(crate) fn read_data() -> (u32, u32, [Vec<Vec<u8>>; 2], PVector, PVector) {
             let linestr = lines.next().unwrap().unwrap();
             let mut line: Vec<u8> = Vec::new();
 
-            for j in 0..linestr.chars().as_str().len() {
-                let id = char_to_int(linestr.chars().nth(j).unwrap());
+            for (j, ch) in linestr.chars().enumerate() {
+                let id = char_to_int(ch);
 
                 line.push(id);
                 if id == 2 {
