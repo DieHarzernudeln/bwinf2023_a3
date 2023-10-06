@@ -1,9 +1,15 @@
 use std::collections::HashMap;
 use std::io::{BufRead, BufReader};
 
-pub(crate) fn read_data() -> (u32, u32, [Vec<Vec<u8>>; 2], PVector, PVector) {
+pub(crate) fn read_data(fixed_path: String) -> (u32, u32, [Vec<Vec<u8>>; 2], PVector, PVector) {
     let mut input = String::new();
-    std::io::stdin().read_line(&mut input).unwrap();
+
+    if fixed_path.is_empty() {
+        println!("Enter path to file:");
+        std::io::stdin().read_line(&mut input).unwrap();
+    } else {
+        input = fixed_path;
+    }
 
     let file_path = input.trim();
     let file = BufReader::new(std::fs::File::open(file_path).unwrap());
