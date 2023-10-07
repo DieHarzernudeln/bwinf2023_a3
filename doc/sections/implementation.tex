@@ -1,0 +1,62 @@
+\section{Umsetzung}
+Die Umsetzung dieser Aufgabe erfolgte in Rust, einer Programmiersprache, die für ihre Sicherheit, Geschwindigkeit und Nebenläufigkeit bekannt ist.
+Der Code ist in folgende Module aufgeteilt, um die Lesbarkeit und Wartbarkeit zu verbessern:
+\begin{itemize}
+    \item main.rs ->
+          Dieses Modul enthält die main-Funktion, die das Programm startet und die Eingabedaten liest.
+          Es ruft den A*-Algorithmus auf, um den kürzesten Weg zu finden, und gibt die Ergebnisse aus.
+
+    \item utils.rs ->
+          In diesem Modul werden Hilfsfunktionen und Datenstrukturen definiert, die in verschiedenen Teilen des Programms verwendet werden.
+          Dazu gehören das Einlesen der Eingabedaten, die Konvertierung von Zeichen in Zahlen und Datenstrukturen wie PVector und Node.
+
+    \item astar.rs ->
+          Hier wird der A*-Algorithmus implementiert, um den optimalen Pfad zu finden.
+          Dieses Modul enthält die Hauptlogik zur Pfadberechnung.
+\end{itemize}
+
+\subsection{Datenstrukturen}
+\subsubsection*{PVector}
+Die PVector-Struktur repräsentiert einen 3D-Vektor, der in diesem Kontext Rons Position auf dem Spielfeld darstellt.\\
+Sie speichert die Koordinaten für x, y und das Stockwerk z.
+Diese Struktur dient als Key in der Nodes Hashpam um eine Node im A*-Algorithmus zu identifizieren.
+\subsubsection*{Node}
+Die Node-Struktur repräsentiert einen Knoten im Suchbaum des A*-Algorithmus. \\
+Sie enthält Informationen über die Kosten g (bisherige Kosten, um diesen Knoten zu erreichen),
+die geschätzten Kosten h (geschätzte Kosten, um vom aktuellen Knoten zum Ziel zu gelangen)
+und einen Verweis auf den Vorgängerknoten (Parent).
+
+\subsection{Einlesen der Eingabedaten}
+Die Eingabedaten werden in \texttt{utils.rs} verarbeitet.
+Die Funktion \texttt{read\_data()} liest die Dimensionen des Spielfelds, die Positionen von Ron und dem Ziel,
+sowie die Spielfeldkonfiguration (Wände, Felder usw.) aus einer Datei oder von der Benutzereingabe.
+
+\subsection{Konvertierung von Zeichen in Zahlen}
+Die Funktion \texttt{char\_to\_int()} in \texttt{utils.rs} konvertiert Zeichen aus der Spielfeldkonfiguration in entsprechende Zahlenwerte.
+Dies ermöglicht die einfache Identifikation von Wänden, Feldern, Rons Position und dem Ziel auf dem Spielfeld.
+
+Diese Beschreibung gibt einen umfassenden Überblick über die Umsetzung der Aufgabe. Der Code verwendet Rusts Leistungsfähigkeit und Sicherheit, um den kürzesten Weg unter Berücksichtigung der gegebenen Bedingungen in der Zauberschule Bugwarts zu finden.
+
+\subsection{A* Algorithmus}
+Der A*-Algorithmus wird in astar.rs implementiert und ist der Kern des Programms.
+
+Der Algorithmus arbeitet wie folgt:
+
+\begin{itemize}
+
+    \item Initialisierung der offenen Liste (known\_nodes) und der leeren geschlossenen Liste (finished\_nodes) als Vec.
+
+    \item Initialisierung der Map für die Nodes als HashMap<PVector, Node>
+
+    \item Startknoten wird zur offenen Liste hinzugefügt. Dieser Knoten enthält Informationen über die aktuelle Position von Ron.
+
+    \item Während die offene Liste nicht leer ist, wird der Knoten mit den geringsten Gesamtkosten (g + h) ausgewählt.\\
+          \texttt{let current = *known\_nodes.iter().min\_by\_key(|p| nodes[p].g + nodes[p].h).unwrap();}
+
+    \item Wenn der ausgewählte Knoten das Ziel ist, wird der Pfad über die parents zurückverfolgt\\ und die Kosten sowie der gefundene Pfad werden ausgegeben.
+
+    \item Andernfalls werden die Nachbarknoten des ausgewählten Knotens generiert und deren Kosten berechnet. Wenn ein Nachbarnode bereits in der geschlossenen Liste ist und die Kosten geringer sind, wird er übersprungen. Andernfalls wird er zur offenen Liste hinzugefügt.
+
+    \item Schritte 4 bis 6 werden wiederholt, bis das Ziel erreicht ist oder festgestellt wird, dass kein Pfad existiert.
+
+\end{itemize}

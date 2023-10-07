@@ -1,0 +1,20 @@
+\babel@toc {ngerman}{}
+\contentsline {section}{\numberline {1}L\IeC {\"o}sungsidee}{2}{}%
+\contentsline {section}{\numberline {2}Umsetzung}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Datenstrukturen}{3}{}%
+\contentsline {subsection}{\numberline {2.2}Einlesen der Eingabedaten}{3}{}%
+\contentsline {subsection}{\numberline {2.3}Konvertierung von Zeichen in Zahlen}{3}{}%
+\contentsline {subsection}{\numberline {2.4}A* Algorithmus}{3}{}%
+\contentsline {section}{\numberline {3}Beispiele}{5}{}%
+\contentsline {subsection}{\numberline {3.1}Zauberschule 0}{5}{}%
+\contentsline {subsection}{\numberline {3.2}Zauberschule 1}{5}{}%
+\contentsline {subsection}{\numberline {3.3}Zauberschule 2}{5}{}%
+\contentsline {subsection}{\numberline {3.4}Zauberschule 3}{5}{}%
+\contentsline {subsection}{\numberline {3.5}Zauberschule 4}{5}{}%
+\contentsline {subsection}{\numberline {3.6}Zauberschule 5}{5}{}%
+\contentsline {subsection}{\numberline {3.7}My\_Zauberschule 6}{5}{}%
+\contentsline {section}{\numberline {4}Quellcode}{6}{}%
+\contentsline {subsection}{\numberline {4.1}main.rs: -> Hauptprogramm}{6}{}%
+\contentsline {subsection}{\numberline {4.2}astar.rs -> Die eigentliche Implementierung des a*-Algorithmus:}{6}{}%
+\contentsline {subsection}{\numberline {4.3}utils.rs -> FileReading und struct Definitionen}{8}{}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

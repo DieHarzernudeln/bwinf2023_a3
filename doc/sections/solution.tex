@@ -1,0 +1,37 @@
+\section{Lösungsidee}
+\begin{flushleft}
+  Die Lösungsidee besteht darin, den A*-Algorithmus zu verwenden, um den optimalen Pfad von A nach B zu finden.\\
+  Der A* Algorithmus ist geeignet da er sehr effizient ist. \\
+  Durch die Verwendung der \glqq{Luftlinie}\grqq{} zum Ziel ist er 
+  z.B. dem Dijkstra-Algorithmus überlegen\\
+  Da z.T. sehr große Ebenen verwendet werden, ist auch das Überprüfen aller möglicher Wege nicht sinnvoll
+  \linebreak
+  \linebreak
+  Dazu wird die gegebene Textdatei zuerst eingelesen und in eine verwendbare Datenstruktur 
+  \\
+  (z.B. 3 Dimensionales Array) überführt
+  \linebreak
+  \linebreak
+  Dabei wird ein Suchbaum erstellt, wobei jeder Knoten einen Zustand repräsentiert, der aus Rons aktueller Position, dem Abstand zum Startpunkt (g), dem kürzest möglichen Abstand zum Ziel (h) und dem Vorgängerknoten besteht.
+  \\
+  Der Algorithmus besitzt 2 Listen. Die \glqq{openList}\grqq{} enthält alle zu untersuchenden Knoten und die \glqq{closedList}\grqq{} alle bereits abschließend untersuchten Knoten.
+  \\
+  Der Algorithmus bewertet die Knoten basierend auf den Kosten für das Erreichen des aktuellen Knotens und einer geschätzten Kostenfunktion für das Erreichen des Ziels.
+  \linebreak
+  \linebreak
+  Folgendes geschieht solange es noch zu untersuchende Knoten in der \glqq{openList}\grqq{} gibt:
+  \begin{enumerate}
+
+    \item Es wird immer der Knoten (x) mit dem geringsten Wert von $f=g+h$ überprüft.
+    \item Wenn (x) bereits das Ziel ist bricht der Algorithmus ab.
+    \item (x) wird aus der \glqq{openList}\grqq{} entfernt und als abschließend untersuchter Knoten eingetragen
+    \item Es werden für alle alle begehbaren Nachbarn (n) von (x) die g und h Werte berechnet
+          \subitem{Dabei gilt $g_{n} = g_{x} + dist(x,n); dist(x,n) \in \{1;3\}$ und $h_{n} = optimal\_dist(n,target)$}
+    \item Die Nachbarn werden mitsamt ihrer g und h Werte in die \glqq{openList}\grqq{} eingetragen.
+
+  \end{enumerate}
+  Durch die Expansion der Knoten und die Auswahl desjenigen mit der geringsten Gesamtkostenbewertung wird der kürzeste Weg ermittelt.
+  Um die Wände zu berücksichtigen, wird bei der Erstellung des Nachbarknotens geprüft, ob dieser begehbar ist.\\
+  Im Generellen wird immer der Übergang in das jeweils andere Stockwerk in Betracht gezogen,
+  wobei diese Wege durch den hohen g Wert tendentiell unattraktiv sind.\\
+\end{flushleft}
