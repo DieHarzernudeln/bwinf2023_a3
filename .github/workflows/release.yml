@@ -10,7 +10,7 @@ on:
 
 env:
   BIN_NAME: bwinf_2023a3
-  PROJECT_NAME: bwin2023a3
+  PROJECT_NAME: bwinf2023a3
   REPO_NAME: DieHarzernudeln/bwinf2023_a3
   BREW_TAP: jondot/homebrew-tap
 

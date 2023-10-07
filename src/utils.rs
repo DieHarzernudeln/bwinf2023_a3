@@ -17,7 +17,7 @@ pub(crate) fn read_data(fixed_path: String) -> (u32, u32, [Vec<Vec<u8>>; 2], PVe
     let mut lines = file.lines();
 
     let first_line = lines.next().unwrap().unwrap();
-    let split: Vec<&str> = first_line.split(' ').collect();
+    let split: Vec<&str> = first_line.split_whitespace().collect();
     let size_y = split[0].parse::<u32>().unwrap();
     let size_x = split[1].parse::<u32>().unwrap();
 
